@@ -12,7 +12,7 @@ const elementName = (e) => ["Wood", "Fire", "Earth", "Metal", "Water"][e];
 const childOf = [E.FIRE, E.EARTH, E.METAL, E.WATER, E.WOOD];
 
 // Ke (controls): Wood->Earth, Earth->Water, Water->Fire, Fire->Metal, Metal->Wood
-const keTarget = [E.EARTH, E.WATER, E.FIRE, E.WOOD, E.METAL];
+const keTarget = [E.EARTH, E.METAL, E.WATER, E.WOOD, E.FIRE];
 
 function randElem() {
   return Math.floor(Math.random() * 5);
