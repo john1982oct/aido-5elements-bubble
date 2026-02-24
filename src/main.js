@@ -711,13 +711,36 @@ const config = {
   type: Phaser.AUTO,
   parent: "app",
   backgroundColor: "#0b1020",
-  scale: {
-    mode: Phaser.Scale.RESIZE,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: window.innerWidth,
-    height: window.innerHeight
-  },
+scale: {
+  mode: Phaser.Scale.RESIZE,
+  parent: "app",
+  autoCenter: Phaser.Scale.CENTER_BOTH,
+  width: 390,
+  height: 844
+},
   scene: [MainScene]
 };
 
-new Phaser.Game(config);
+const game = new Phaser.Game(config);
+
+function resizeToApp() {
+  const app = document.getElementById("app");
+  if (!app || !game.scale) return;
+
+  // Real size of the container (works better than innerHeight on iOS)
+  const rect = app.getBoundingClientRect();
+  const w = Math.floor(rect.width);
+  const h = Math.floor(rect.height);
+
+  if (w > 0 && h > 0) {
+    game.scale.resize(w, h);
+  }
+}
+
+// Run once after layout settles
+setTimeout(resizeToApp, 50);
+setTimeout(resizeToApp, 250);
+
+// Listen to iOS address bar changes / orientation
+window.addEventListener("resize", () => setTimeout(resizeToApp, 50));
+window.addEventListener("orientationchange", () => setTimeout(resizeToApp, 100));
